@@ -19,6 +19,21 @@ async function getData() {
   };
 }
 
+const LaunchInformation = ({
+  title,
+  description,
+}: {
+  title: string;
+  description: string;
+}) => {
+  return (
+    <div className="flex flex-col">
+      <span className="text-gray-300 text-sm">{title}</span>
+      <span className="font-semibold">{description}</span>
+    </div>
+  );
+};
+
 export default async function Home() {
   const { latest, next } = await getData();
 
@@ -41,29 +56,22 @@ export default async function Home() {
               height={236}
             />
 
-            <div className="flex flex-col">
-              <span className="text-gray-300 text-sm">Nome</span>
-              <span className="font-semibold">{latest.name}</span>
-            </div>
+            <LaunchInformation title="Nome" description={latest.name} />
 
-            <div className="flex flex-col">
-              <span className="text-gray-300 text-sm">Vôo</span>
-              <span className="font-semibold">#{latest.flight_number}</span>
-            </div>
+            <LaunchInformation
+              title="Vôo"
+              description={`#${latest.flight_number}`}
+            />
 
-            <div className="flex flex-col">
-              <span className="text-gray-300 text-sm">Sucesso</span>
-              <span className="font-semibold">
-                {latest.success ? "✅" : "🔥"}
-              </span>
-            </div>
+            <LaunchInformation
+              title="Sucesso"
+              description={latest.success ? "✅" : "🔥"}
+            />
 
-            <div className="flex flex-col">
-              <span className="text-gray-300 text-sm">Data</span>
-              <span className="font-semibold">
-                {new Date(latest.date_utc).toLocaleDateString()}
-              </span>
-            </div>
+            <LaunchInformation
+              title="Data"
+              description={new Date(latest.date_utc).toLocaleDateString()}
+            />
 
             <div className="flex-1 flex justify-end">
               <Link
