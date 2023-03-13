@@ -9,8 +9,8 @@ async function getData() {
     "https://api.spacexdata.com/v5/launches/next"
   );
 
-  if (!latestResponse.ok) {
-    throw new Error("Failed to fetch data");
+  if (!latestResponse.ok || !nextResponse.ok) {
+    throw new Error("Erro ao carregar dados");
   }
 
   return {
@@ -21,10 +21,10 @@ async function getData() {
 
 export default async function Home() {
   const { latest, next } = await getData();
-  console.log(next);
+
   return (
-    <div className="min-h-screen bg-neutral-900 max-w-7xl p-8 text-white">
-      <main className="flex flex-col gap-6">
+    <div className="min-h-screen bg-neutral-900 text-white w-full">
+      <main className="flex flex-col gap-6 max-w-7xl p-8 mx-auto">
         <h1 className="text-white text-2xl font-semibold">
           Lançamentos SpaceX
         </h1>
